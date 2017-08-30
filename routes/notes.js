@@ -48,7 +48,6 @@ router.post('/:host', (req, res, next)=>{
     .insert(postObj, "*")
     .then((newNote)=>{
       let newNoteId = newNote[0].id;
-      console.log(newNote);
       knex('host')
         .select("*")
         .where('hostname', host)
@@ -62,22 +61,22 @@ router.post('/:host', (req, res, next)=>{
                     .insert({'host_id':hostId,'notes_id':newNoteId},'*')
                     .then((hostClue)=>{
                       knex('notes_host')
-                      .select('*')
-                      .where('host_id', hostClue[0].host_id)
-                      .join('notes', 'notes_host.notes_id', '=', 'notes.id')
-                      .then((note)=>{
-                        let notesArr = [];
-                        note.forEach((ele, i)=>{
-                          notesArr.push({
-                            'title':ele.title,
-                            'content':ele.content
-                          });
-                        })
-                        res.send({
-                          "userNotes":"true",
-                          "notes":notesArr
-                        })
-                    })
+                        .select('*')
+                        .where('host_id', hostClue[0].host_id)
+                        .join('notes', 'notes_host.notes_id', '=', 'notes.id')
+                        .then((note)=>{
+                          let notesArr = [];
+                          note.forEach((ele, i)=>{
+                            notesArr.push({
+                              'title':ele.title,
+                              'content':ele.content
+                            });
+                          })
+                          res.send({
+                            "userNotes":"true",
+                            "notes":notesArr
+                          })
+                      })
                   })
               })
           }else{
@@ -86,41 +85,35 @@ router.post('/:host', (req, res, next)=>{
                 .insert({'host_id':hostId,'notes_id':newNoteId},'*')
                 .then((hostClue)=>{
                   knex('notes_host')
-                  .select('*')
-                  .where('host_id', hostClue[0].host_id)
-                  .join('notes', 'notes_host.notes_id', '=', 'notes.id')
-                  .then((note)=>{
-                    let notesArr = [];
-                    note.forEach((ele, i)=>{
-                      notesArr.push({
-                        'title':ele.title,
-                        'content':ele.content
-                      });
-                    })
-                    res.send({
-                      "userNotes":"true",
-                      "notes":notesArr
-                    })
-                })
+                    .select('*')
+                    .where('host_id', hostClue[0].host_id)
+                    .join('notes', 'notes_host.notes_id', '=', 'notes.id')
+                    .then((note)=>{
+                      let notesArr = [];
+                      note.forEach((ele, i)=>{
+                        notesArr.push({
+                          'title':ele.title,
+                          'content':ele.content
+                        });
+                      })
+                      res.send({
+                        "userNotes":"true",
+                        "notes":notesArr
+                      })
+                  })
               })
           }
         })
     })
 
-  // res.send({
-  //   "message":"In post",
-  //   "userNotes":"true",
-  //   "notes":{
-  //     "title":`${req.body.title}`,
-  //     "content":`${req.body.content}`
-  //   }
-  // });
 })
+
 router.patch('/', (req, res, next)=>{
   res.send({
     "message":"In patch"
   });
 })
+
 router.delete('/', (req, res, next)=>{
   res.send({
     "message":"In delete"

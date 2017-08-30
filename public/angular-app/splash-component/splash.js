@@ -12,9 +12,14 @@
       const vm = this;
 
       vm.$onInit = function () {
-
+        vm.notes=[];
+        $http({
+          method: 'GET',
+          url: 'http://localhost:8380/splash/1'
+        }).then(function(response){
+          vm.notes = response.data;
+        })
       };
-
     }
 
 }());
