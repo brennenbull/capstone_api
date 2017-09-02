@@ -9,7 +9,7 @@ const port = process.env.PORT || 8380;
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname,  'public')))
 
 app.use('/notes', notes);
 app.use('/splash', splash);

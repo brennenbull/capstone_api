@@ -6,15 +6,18 @@ exports.seed = function(knex, Promise) {
       return knex('host').insert([
         {
           id:1,
-          hostname: 'google'
+          hostname: 'google',
+          users_id: 1
         },
         {
           id:2,
-          hostname: 'voltagead'
+          hostname: 'voltagead',
+          users_id: 1
         },
         {
           id:3,
-          hostname: 'webscale'
+          hostname: 'webscale',
+          users_id: 1
         },
       ]);
     }).then(function(){

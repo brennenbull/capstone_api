@@ -38,11 +38,11 @@ router.get('/:id', (req, res, next)=>{
 })
 router.post('/:host', (req, res, next)=>{
   let host = req.params.host;
-  let users_id = 1;
+  let usersID = 1;
   let postObj = {
     "title":req.body.title,
     "content":req.body.content,
-    "users_id":users_id
+    "users_id":usersID
   }
   knex('notes')
     .insert(postObj, "*")
@@ -54,7 +54,10 @@ router.post('/:host', (req, res, next)=>{
         .then((hostObj)=>{
           if(hostObj.length === 0){
             knex('host')
-              .insert({hostname:host}, "*")
+              .insert({
+                hostname:host,
+                users_id:usersID
+              }, "*")
               .then((newhost)=>{
                 let hostId = newhost[0].id;
                   knex('notes_host')
