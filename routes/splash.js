@@ -3,6 +3,7 @@ const router = express.Router();
 const knex = require('../knex');
 
 router.get('/:id', (req,res,next)=>{
+  console.log('in heroku get');
   let id = req.params.id;
   let resObj = {
     hostsNotes:{

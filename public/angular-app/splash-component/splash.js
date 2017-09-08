@@ -76,7 +76,7 @@
         }).then(()=>{
           $http({
             method: 'GET',
-            url: '/splash/1'
+            url: 'https://mighty-taiga-78748.herokuapp.com/splash/1'
           }).then(function(res){
             let hostArr = [];
             let notesArr = [];
