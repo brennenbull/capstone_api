@@ -20,7 +20,7 @@
         vm.catList=[];
         $http({
           method: 'GET',
-          url: '/splash/1'
+          url: 'https://mighty-taiga-78748.herokuapp.com/splash/1'
         }).then(function(res){
           vm.name = res.data.firstname;
           let hostArr = [];
@@ -62,7 +62,7 @@
         }
         $http({
           method: 'PATCH',
-          url: `/splash/note/${note['notes_id']}`,
+          url: `https://mighty-taiga-78748.herokuapp.com/splash/note/${note['notes_id']}`,
           data: dataObj
         }).then(()=>{
           note.show = false;
@@ -72,7 +72,7 @@
       vm.deleteNote = function(note){
         $http({
           method: 'DELETE',
-          url: `/splash/note/${note['notes_id']}`
+          url: `https://mighty-taiga-78748.herokuapp.com/splash/note/${note['notes_id']}`
         }).then(()=>{
           $http({
             method: 'GET',
