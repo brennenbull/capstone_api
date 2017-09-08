@@ -4,6 +4,8 @@ exports.up = function(knex, Promise) {
     table.string("title", 255).notNullable();
     table.string("content", 255).notNullable();
     table.integer("users_id").index().references('users.id').notNullable().onDelete('cascade');
+    table.string('host', 255).notNullable();
+    table.string('category',255).notNullable().defaultTo('none')
     table.timestamp('created_at').notNullable().defaultTo(knex.fn.now());
     table.timestamp('updated_at').notNullable().defaultTo(knex.fn.now());
   })

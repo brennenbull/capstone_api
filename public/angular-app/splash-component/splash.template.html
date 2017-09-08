@@ -1,48 +1,80 @@
-<div class="nave">
+<div class="nav">
   <h1>Welcome {{$ctrl.name}}</h1>
-  <h2>Filter By {{$ctrl.customFilter['host']}}</h2>
 </div>
-<div class="side-nav">
-  <div class="notes-cat" ng-repeat="host in $ctrl.hostList">
-    <div class="host">
-      <button type="button" name="button" value="{{host}}" ng-click="$ctrl.customFilter = {host}">
-        <h2>{{host}}</h2>
+<div class="flex">
+  <div class="side-nav">
+    <div class="head">
+    </div>
+    <div class="notes-contain">
+      <h3>Your Websites</h3>
+      <div class="notes" ng-repeat="host in $ctrl.hostList">
+        <div class="host">
+          <button ng-class="{ clicked : host['selected']}" type="button" name="button" value="{{host['host']}}" ng-click="$ctrl.customFilter = host['host'] ; $ctrl.addClass(host, $ctrl.hostList)">
+            <h4>{{host['host']}}</h4>
+          </button>
+        </div>
+      </div>
+      <button type="button" name="button" ng-click="$ctrl.customFilter = ''; $ctrl.removeClass($ctrl.hostList)">
+        <h4>See All</h4>
+      </button>
+    </div>
+    <div class="cat-contain">
+      <h3>Your Topics</h3>
+      <div class="catergories" ng-repeat="cat in $ctrl.catList">
+        <div class="cats">
+          <button ng-class="{ clicked : cat['selected']}" type="button" name="button" value="{{cat['cat']}}" ng-click="$ctrl.customTag = cat['cat'] ;
+          $ctrl.addCatClass(cat, $ctrl.catList)">
+            <h4>{{cat['cat']}}</h4>
+          </button>
+        </div>
+      </div>
+      <button type="button" name="button" ng-click="$ctrl.customTag = '';
+      $ctrl.removeClass($ctrl.catList)">
+        <h4>See All</h4>
       </button>
     </div>
   </div>
-  <button type="button" name="button" ng-click="$ctrl.customFilter = ''">
-    <h2>See All</h2>
-  </button>
-</div>
-<div class="main-body">
-  <div class="single-notes" ng-repeat = "notes in $ctrl.notes | filter:$ctrl.customFilter['host']">
-    <div class="note-domain">
-      <h2>{{notes['name']}}</h2>
-      <div class="single note" ng-repeat = "note in notes.notes">
-        <h4>{{note['title']}}</h4>
-        <hr>
-        <p>{{note['content']}}</p>
-        <button type="button" name="button" ng-click="$ctrl.showEdit(note)">EDIT</button>
-        <button type="button" name="button" ng-click="$ctrl.deleteNote(note)">DELETE</button>
-        <div ng-if="note.show">
-          <form name="noteEdit" ng-submit="$ctrl.editNote(note)">
-            <div>
-              <label for="title">Title</label>
-              <input ng-model="note['title']" id="title" class="form-control" required>
+  <div class="main-body">
+    <div class="single-notes" ng-repeat = "notes in $ctrl.notes | filter:$ctrl.customFilter">
+      <div class="note-domain">
+        <div class="single" ng-repeat = "note in notes.notes | filter:$ctrl.customTag">
+          <div class="single-header">
+            <div class="name">
+              <h3>Domain: {{notes['name']}}</h3>
             </div>
-            <div>
-              <label for="description">Content</label>
-              <textarea ng-model="note['content']" id="descirption" class="form-control" required></textarea>
+            <div class="single-cat">
+              <h3>{{note['category']}}</h3>
             </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary" ng-disabled="postEdit.$invalid || postEdit.$pending">
-                Post Edit
-              </button>
+          </div>
+          <div class="single-body">
+            <h4>{{note['title']}}</h4>
+            <hr>
+            <p>{{note['content']}}</p>
+            <button type="button" name="button" ng-click="$ctrl.showEdit(note)"><img src="../../style/icons/edit.png" alt="edit" style="width: 15px; height: 15px;"></button>
+            <button type="button" name="button" ng-click="$ctrl.deleteNote(note)"><img src="../../style/icons/trash1600.png" alt="trash" style="width: 15px; height: 15px;"></button>
+            <div ng-if="note.show">
+              <form name="noteEdit" ng-submit="$ctrl.editNote(note)">
+                <div>
+                  <label for="title">Title</label>
+                  <input ng-model="note['title']" id="title" class="form-control" required>
+                </div>
+                <div>
+                  <label for="description">Content</label>
+                  <textarea ng-model="note['content']" id="descirption" class="form-control" required></textarea>
+                </div>
+                <div>
+                  <label for="category">Category</label>
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary" ng-disabled="postEdit.$invalid || postEdit.$pending">
+                    Post Edit
+                  </button>
+                </div>
+              </form>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>

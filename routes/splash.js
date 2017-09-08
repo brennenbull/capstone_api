@@ -15,24 +15,25 @@ router.get('/:id', (req,res,next)=>{
     .then((user)=>{
       let userName = user[0].firstname
       resObj.firstname = userName;
-      knex('host')
+      knex('notes')
         .select('*')
-        .where('host.users_id', id)
-        .join('notes_host', 'host.id', '=', 'host_id')
-        .join('notes', 'notes_host.notes_id', '=', 'notes.id')
+        .where('notes.users_id', id)
         .then((userHost)=>{
           userHost.forEach((ele, i)=>{
-            let host = ele.hostname
+            let host = ele.host
             if(resObj.hostsNotes[host] !== undefined){
-              resObj.hostsNotes[host].push({notes_id: ele.notes_id,
+              resObj.hostsNotes[host].push({notes_id: ele.id,
               host_id: ele.host_id,
               title: ele.title,
-              content: ele.content})
+              content: ele.content,
+              category:ele.category
+              })
             }else if(resObj.hostsNotes[host] == undefined){
-              resObj.hostsNotes[host]=[{notes_id: ele.notes_id,
-              host_id: ele.host_id,
+              resObj.hostsNotes[host]=[{notes_id: ele.id,
               title: ele.title,
-              content: ele.content}]
+              content: ele.content,
+              category:ele.category
+              }]
             }
           })
           res.send(resObj)

@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path')
 const notes = require('./routes/notes.js');
 const splash = require('./routes/splash.js');
+const categories = require('./routes/categories.js')
 const port = process.env.PORT || 8380;
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -13,6 +14,7 @@ app.use(express.static(path.join(__dirname,  'public')))
 
 app.use('/notes', notes);
 app.use('/splash', splash);
+app.use('/categories', categories);
 
 app.listen(port, ()=>{
   console.log('app listening on post '+ port);

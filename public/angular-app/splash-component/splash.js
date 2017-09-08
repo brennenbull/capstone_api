@@ -16,6 +16,8 @@
         vm.hostList=[];
         vm.name="";
         vm.customFilter= "";
+        vm.customTag = ""
+        vm.catList=[];
         $http({
           method: 'GET',
           url: '/splash/1'
@@ -25,16 +27,26 @@
           let notesArr = [];
           for(let keys in res.data.hostsNotes){
             notesArr.push({name:keys, notes:res.data.hostsNotes[keys]})
-            hostArr.push(keys);
+            hostArr.push({host:keys});
           }
-          console.log(notesArr);
+          let obj = {};
+          for(let i = 0; i < notesArr.length; i++){
+            let note = notesArr[i].notes
+            for(let j = 0; j < note.length; j++){
+              if(obj[note[j].category] === undefined){
+                obj[note[j].category] = 1;
+              }
+            }
+          }
+          for(let cat in obj){
+            vm.catList.push({cat});
+          }
           vm.notes = notesArr;
           vm.hostList = hostArr;
         })
       };
 
       vm.showEdit = function(obj){
-        console.log(obj);
         if(obj.show === false || obj.show === undefined){
           obj.show = true;
         }else{
@@ -70,16 +82,40 @@
             let notesArr = [];
             for(let keys in res.data.hostsNotes){
               notesArr.push({name:keys, notes:res.data.hostsNotes[keys]})
-              hostArr.push(keys);
+              hostArr.push({host:keys});
             }
-            console.log(notesArr);
             vm.notes = notesArr;
             vm.hostList = hostArr;
           })
         })
       }
+
+      vm.addClass = function(hostEle, hostlist){
+        hostlist.forEach((ele)=>{
+          if(ele.host == hostEle.host){
+            ele.selected = true;
+          }else{
+            ele.selected = false;
+          }
+        })
+      }
+
+      vm.addCatClass = function(hostEle, hostlist){
+        hostlist.forEach((ele)=>{
+          if(ele.cat == hostEle.cat){
+            ele.selected = true;
+          }else{
+            ele.selected = false;
+          }
+        })
+      }
+
+      vm.removeClass = function(list){
+        list.forEach((ele)=>{
+          ele.selected = false;
+        })
+      }
+
+
     }
-
-
-
 }());

@@ -16,7 +16,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           id:3,
-          hostname: 'webscale',
+          hostname: 'css-tricks',
           users_id: 1
         },
       ]);

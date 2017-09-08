@@ -5,27 +5,35 @@ exports.seed = function(knex, Promise) {
       return knex('notes').insert([
         {
           id:1,
-          title:"Note About Google",
-          content: "This is a note about google, lets take some notes",
-          users_id:1,
+          title:"Space X",
+          content: "This is a note about SpaceX on google, lets take some notes",
+          host:'google',
+          category: 'spacex',
+          users_id:1
         },
         {
           id:2,
-          title:"Note About Google",
-          content: "This is a note about google, lets take some notes",
-          users_id:1,
+          title:"Should I go to space?",
+          content: "This is a note about space, also on google",
+          host:'google',
+          category: 'spacex',
+          users_id:1
         },
         {
           id:3,
-          title:"Note About webscale",
-          content: "This is a note about webscale, lets take some notes",
-          users_id:1,
+          title:"Voltage ad",
+          content: "This is a note about Voltage, lets take some notes",
+          host:'voltagead',
+          category: 'voltage',
+          users_id:1
         },
         {
           id:4,
-          title:"Note About Voltage Ad",
-          content: "This is a note about voltage, lets take some notes",
-          users_id:1,
+          title:"Note About css grid",
+          content: "This is a note about the css grid, lets take some notes",
+          host:'css-tricks',
+          category: 'cssgrid',
+          users_id:1
         }
       ]);
     }).then(function(){
