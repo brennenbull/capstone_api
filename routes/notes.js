@@ -59,6 +59,7 @@ router.post('/:host', (req, res, next)=>{
     "host":host,
     "category":cat,
   }
+  console.log('posting new note');
   knex('notes')
     .insert(postObj, "*")
     .then((newNote)=>{

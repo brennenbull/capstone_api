@@ -37,6 +37,7 @@ router.get('/:id', (req,res,next)=>{
               }]
             }
           })
+          console.log('post: splash get', resObj);
           res.send(resObj)
         })
     })
